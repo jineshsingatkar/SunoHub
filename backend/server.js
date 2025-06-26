@@ -15,6 +15,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const uploadRoutes = require('./routes/uploads');
 const webrtcRoutes = require('./routes/webrtc');
+const voiceConfessionRoutes = require('./routes/voiceConfessionRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -78,6 +79,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', authMiddleware, userRoutes);
 app.use('/api/uploads', authMiddleware, uploadRoutes);
 app.use('/api/webrtc', authMiddleware, webrtcRoutes);
+app.use('/api/voice', voiceConfessionRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
