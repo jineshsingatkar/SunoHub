@@ -1,7 +1,16 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
+  userId: { type: String, required: true, unique: true },
+  nickname: { type: String, required: true },
+  avatar: { type: String },
+  languagePreference: { type: String },
+  isAnonymous: { type: Boolean, default: false },
+  recoveryCode: { type: String },
+  onlineStatus: { type: Boolean, default: false },
+  deviceInfo: { type: String },
+  createdAt: { type: Date, default: Date.now },
   username: {
     type: String,
     required: [true, 'Username is required'],
@@ -34,10 +43,6 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Last name is required'],
     trim: true,
     maxlength: [50, 'Last name cannot exceed 50 characters']
-  },
-  avatar: {
-    type: String,
-    default: null
   },
   bio: {
     type: String,
@@ -74,22 +79,20 @@ const userSchema = new mongoose.Schema({
       showLastSeen: { type: Boolean, default: true }
     }
   }
-}, {
-  timestamps: true
-});
+}, { timestamps: true });
 
 // Index for better query performance
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
-userSchema.index({ isOnline: 1 });
+UserSchema.index({ email: 1 });
+UserSchema.index({ username: 1 });
+UserSchema.index({ isOnline: 1 });
 
 // Virtual for full name
-userSchema.virtual('fullName').get(function() {
+UserSchema.virtual('fullName').get(function() {
   return `${this.firstName} ${this.lastName}`;
 });
 
 // Hash password before saving
-userSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function(next) {
   if (!this.isModified('password')) {
     return next();
   }
@@ -104,18 +107,18 @@ userSchema.pre('save', async function(next) {
 });
 
 // Compare password method
-userSchema.methods.comparePassword = async function(candidatePassword) {
+UserSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
 // Update last seen
-userSchema.methods.updateLastSeen = function() {
+UserSchema.methods.updateLastSeen = function() {
   this.lastSeen = new Date();
   return this.save();
 };
 
 // Get public profile (without sensitive data)
-userSchema.methods.getPublicProfile = function() {
+UserSchema.methods.getPublicProfile = function() {
   const userObject = this.toObject();
   delete userObject.password;
   delete userObject.verificationToken;
@@ -124,4 +127,4 @@ userSchema.methods.getPublicProfile = function() {
   return userObject;
 };
 
-module.exports = mongoose.model('User', userSchema); 
+module.exports = mongoose.model('User', UserSchema); 
