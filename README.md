@@ -1,164 +1,100 @@
-# SunoHub - Full-Stack Multi-Platform Project
+# SunoHub
 
-A comprehensive full-stack application supporting React Native mobile app, Next.js web app, and Node.js backend.
+A full-stack, real-time, privacy-first social platform for anonymous stories, random calls, public rooms, and voice confessions.
 
-## 🏗️ Project Structure
+## 📱 Platforms
+- **React Native Mobile App** (`/mobile`)
+- **Next.js Web App** (`/web`)
+- **Node.js + Express Backend** (`/backend`)
 
+## 📦 Tech Stack
+- **Frontend:** React Native, Next.js, Tailwind CSS
+- **Backend:** Node.js, Express, MongoDB, Mongoose
+- **Real-Time:** Socket.IO (WebRTC, presence, calls)
+- **Voice:** Whisper CLI, Google Cloud Speech-to-Text
+- **Admin:** Custom dashboard, JWT auth
+
+## 📁 Folder Structure
 ```
 SunoHub/
-├── mobile/                  # React Native Mobile App
-│   ├── components/          # Reusable UI components
-│   ├── screens/            # Screen components
-│   ├── navigation/         # Navigation configuration
-│   ├── services/           # API services and external integrations
-│   ├── assets/             # Images, fonts, and static files
-│   ├── utils/              # Utility functions and helpers
-│   ├── App.js              # Main app component
-│   └── package.json        # Dependencies and scripts
-│
-├── web/                     # Next.js Web App
-│   ├── components/          # Reusable UI components
-│   ├── pages/              # Next.js pages and routing
-│   ├── public/             # Static assets
-│   ├── services/           # API services and external integrations
-│   ├── utils/              # Utility functions and helpers
-│   ├── tailwind.config.js  # Tailwind CSS configuration
-│   ├── next.config.js      # Next.js configuration
-│   └── package.json        # Dependencies and scripts
-│
-├── backend/                 # Node.js + Express Backend
-│   ├── config/             # Configuration files
-│   ├── models/             # Database models
-│   ├── controllers/        # Route controllers
-│   ├── routes/             # API routes
-│   ├── middleware/         # Custom middleware
-│   ├── services/           # Business logic services
-│   ├── sockets/            # WebSocket handlers
-│   ├── webrtc/             # WebRTC functionality
-│   ├── uploads/            # File upload handling
-│   ├── server.js           # Main server file
-│   └── package.json        # Dependencies and scripts
-│
-└── README.md               # This file
+├── backend/           # Node.js + Express API, Socket.IO, MongoDB
+├── mobile/            # React Native mobile app
+├── web/               # Next.js web app
+├── docs/              # Documentation (SocketEvents.md, etc.)
+├── README.md          # Project overview (this file)
 ```
+
+## ✨ Key Features
+- Anonymous story posting and browsing
+- Random 1-to-1 call matchmaking by language
+- Public audio rooms with live chat and reactions
+- Voice confession upload + transcription (Whisper/Google STT)
+- Real-time online presence and call status
+- Panic button & abuse reporting (admin alerts)
+- Admin dashboard for moderation, reports, and live monitoring
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn
-- React Native CLI (for mobile development)
-- Android Studio / Xcode (for mobile development)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd SunoHub
-   ```
-
-2. **Install Backend Dependencies**
-   ```bash
-   cd backend
-   npm install
-   ```
-
-3. **Install Web App Dependencies**
-   ```bash
-   cd ../web
-   npm install
-   ```
-
-4. **Install Mobile App Dependencies**
-   ```bash
-   cd ../mobile
-   npm install
-   ```
-
-### Running the Applications
-
-#### Backend Server
+### 1. Clone the repo
 ```bash
-cd backend
-npm run dev
+git clone https://github.com/jineshsingatkar/SunoHub.git
+cd SunoHub
 ```
 
-#### Web Application
+### 2. Install dependencies
 ```bash
-cd web
-npm run dev
+cd backend && npm install
+cd ../web && npm install
+cd ../mobile && npm install
 ```
 
-#### Mobile Application
-```bash
-cd mobile
-npx react-native run-android  # For Android
-npx react-native run-ios      # For iOS
-```
+### 3. Set up environment variables
+- Copy `.env.example` in each folder to `.env` and fill in your secrets (MongoDB URI, JWT, Google STT, etc.)
 
-## 🛠️ Technology Stack
+### 4. Run the apps
+- **Backend:**
+  ```bash
+  cd backend
+  npm run dev
+  ```
+- **Web:**
+  ```bash
+  cd web
+  npm run dev
+  ```
+- **Mobile:**
+  ```bash
+  cd mobile
+  npm run android # or npm run ios
+  ```
 
-### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: MongoDB/PostgreSQL
-- **Authentication**: JWT
-- **Real-time**: Socket.io
-- **File Upload**: Multer
-- **WebRTC**: PeerJS
+## 🔗 API & WebSocket Endpoints
+- **REST API:** `http://localhost:5000/api/`
+- **WebSocket:** `ws://localhost:5000` (Socket.IO)
+- **Key Routes:**
+  - `/api/user/*` (register, login, presence)
+  - `/api/story/*` (post, fetch, delete)
+  - `/api/voice/*` (upload, transcribe, list)
+  - `/api/admin/*` (login, moderation)
+  - `/api/reports/*` (report management)
 
-### Web App
-- **Framework**: Next.js
-- **Styling**: Tailwind CSS
-- **State Management**: Redux Toolkit / Zustand
-- **UI Components**: Headless UI / Radix UI
+## 🛰️ Deployment Suggestions
+- **Backend:** Railway, Render, Heroku (Node.js, MongoDB)
+- **Web:** Vercel, Netlify (Next.js)
+- **Mobile:** Expo Go, EAS, or native stores
 
-### Mobile App
-- **Framework**: React Native
-- **Navigation**: React Navigation
-- **State Management**: Redux Toolkit / Zustand
-- **UI Components**: React Native Elements
+## 🔒 Security Guidelines
+- JWT authentication for all protected routes
+- CORS enabled for trusted origins
+- Rate limiting on API endpoints
+- Input validation and file type checks
+- Never commit secrets to git
 
-## 📱 Features
+---
 
-- **Cross-platform**: Shared business logic between web and mobile
-- **Real-time communication**: WebSocket support
-- **File uploads**: Image and document handling
-- **Authentication**: Secure user management
-- **Responsive design**: Works on all screen sizes
-- **Offline support**: Mobile app offline capabilities
+For detailed API, Socket.IO, and event documentation, see [`/docs/SocketEvents.md`](./docs/SocketEvents.md).
 
-## 🔧 Development
+---
 
-### Code Style
-- ESLint and Prettier for code formatting
-- TypeScript for type safety
-- Conventional commits for version control
-
-### Testing
-- Jest for unit testing
-- React Testing Library for component testing
-- Supertest for API testing
-
-### Deployment
-- Backend: Docker containers on cloud platforms
-- Web: Vercel/Netlify deployment
-- Mobile: App Store and Google Play Store
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## 📞 Support
-
-For support and questions, please open an issue in the repository. 
+## 👩‍💻 Contributing
+Pull requests welcome! Please open issues for bugs or feature requests. 

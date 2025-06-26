@@ -1,4 +1,6 @@
 const { Server } = require('socket.io');
+const registerPresenceHandlers = require('./presenceHandlers');
+const registerPanicAbuseHandlers = require('./panicAbuseHandlers');
 
 // In-memory structures
 const randomQueues = {}; // { language: [socketId, ...] }
@@ -115,6 +117,11 @@ function setupSocket(server) {
       console.log(`[Socket.IO] User disconnected: ${socket.id}`);
     });
   });
+
+  // Register presence event handlers
+  registerPresenceHandlers(io);
+  // Register panic/abuse event handlers
+  registerPanicAbuseHandlers(io);
 
   return io;
 }

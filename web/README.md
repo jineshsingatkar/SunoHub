@@ -1,21 +1,36 @@
 # SunoHub Web App
 
-This is the Next.js web application for SunoHub.
+A modern Next.js web app for anonymous stories, random calls, public rooms, and voice confessions.
 
-## Dependencies
+## 🌐 Setup Guide
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Environment:**
+   - Copy `.env.example` to `.env` and fill in API base URL, etc.
 
-- `next`
-- `react`
-- `react-dom`
-- `axios`
-- `tailwindcss`
-- `postcss`
-- `autoprefixer`
+## 🎨 Tailwind CSS
+- Configured in `tailwind.config.js` for `/pages` and `/components`
+- Utility classes for responsive, modern UI
 
-## Startup Commands
+## 🗺️ Routing & Pages
+- `/` (Home/Dashboard)
+- `/onboarding`
+- `/dashboard`
+- `/confession/[id]`
+- `/write-confession`
+- `/voice-confession`
+- `/public-rooms`
+- `/profile`
+- `/settings`
+- `/admin/*` (admin dashboard, login, moderation, etc.)
 
-To run the application in a development environment, use the following command:
-
+## ▶️ Run the Web App
 ```bash
 npm run dev
-``` 
+```
+
+---
+
+For API endpoints and real-time events, see the main project README. 
